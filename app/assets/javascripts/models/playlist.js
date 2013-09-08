@@ -63,6 +63,7 @@ Syncd.Models.Playlist = Backbone.Model.extend({
       _.each(response, function(value, key) {
           attrs[key] = value;
       });
+      console.log("test");
     }
     return attrs;
   },

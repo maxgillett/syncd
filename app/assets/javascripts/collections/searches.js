@@ -2,6 +2,7 @@ Syncd.Collections.Searches = Backbone.Paginator.requestPager.extend({
 
 	initialize: function(options) {
         this.input = options.input;
+        this.songs = this;
 	    this.artists = new Syncd.Collections.Artists({});
     	this.albums = new Syncd.Collections.Albums({});
     	this.playlists = new Syncd.Collections.Playlists({});
@@ -44,6 +45,12 @@ Syncd.Collections.Searches = Backbone.Paginator.requestPager.extend({
         // the query field in the request
         '$filter': '',
 
+        // current pages
+        'page_artists': function() { return 1 },
+        'page_albums': function() { return 1 },
+        'page_songs': function() { return 1 },                
+
+
         // number of items to return per request/page
         '$top': function() { return this.perPage },
 
@@ -70,7 +77,7 @@ Syncd.Collections.Searches = Backbone.Paginator.requestPager.extend({
         this.albums.reset(response.albums.items);
 
         // Insert pagination information
-        songs.pagination = response.songs.pagination;
+        this.songs.pagination = response.songs.pagination;
         this.artists.pagination = response.artists.pagination;
         this.albums.pagination = response.albums.pagination
 

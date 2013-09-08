@@ -43,9 +43,9 @@ Syncd.Routers.Playlists = Backbone.Router.extend({
 
         searchCollection.fetch({
           success: function(collection) {
-            collection.initSongs();
-            var layout = new Syncd.Layouts.Search({collection: collection});
-            var tracksView = new Syncd.Views.SearchTrackIndex({collection: collection});
+            collection.songs.initSongs();
+            var layout = new Syncd.Layouts.Search();
+            var tracksView = new Syncd.Views.SearchTrackIndex({collection: collection.songs});
             var artists = new Syncd.Views.SearchArtistIndex({collection: collection.artists});
             var albums = new Syncd.Views.SearchAlbumIndex({collection: collection.albums});
 

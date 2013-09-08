@@ -30,6 +30,7 @@ Syncd.Models.Song = Backbone.Model.extend({
         autoPlay: false,
         onload: function() {
           if (!status) {
+            self.trigger("deactivate");
             self.set("failed", true);
             self.nextSong();
           } 
@@ -49,6 +50,7 @@ Syncd.Models.Song = Backbone.Model.extend({
           self.nextSong();
         },
         ondataerror: function() {
+          self.trigger("deactivate");
           self.nextSong();
         },
         onstop: function() {
@@ -74,6 +76,7 @@ Syncd.Models.Song = Backbone.Model.extend({
         autoPlay: false,
         onload: function(status) {
           if (!status) {
+            self.trigger("deactivate");
             self.set("failed", true);
             self.nextSong();
           } 
@@ -94,6 +97,7 @@ Syncd.Models.Song = Backbone.Model.extend({
           self.nextSong();
       	},
         ondataerror: function() {
+          self.trigger("deactivate");
           self.nextSong();
         },
         onstop: function() {

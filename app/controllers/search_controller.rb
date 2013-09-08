@@ -26,9 +26,16 @@ class SearchController < ApplicationController
 	def find_everything
 		input = params[:input]
 
-		@artists = Artist.search input, :per_page => 4
-		@albums = Album.search input, :per_page => 4
-		@songs = Song.search input, :per_page => 25
+		page = Hash[ "songs" => params[:songs] || 1,
+					 "artists" => params[:artists] || 1,
+					 "albums" => params[:albums] || 1 ]
+
+		@artists = Artist.search(input, :per_page => 4, :page => page["artists"])
+		@albums = Album.search(input, :per_page => 4, :page => page["artists"])
+		@songs = Song.search(:per_page => 25, :page => page["songs"]) do 
+					query { string input }
+					sort { by :audio, "desc" }
+				end
 
 		json = { 'artists' => { 'items'      => @artists.as_json,
 								'pagination' => { 'total_entries' => @artists.total_entries,
